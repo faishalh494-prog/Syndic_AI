@@ -123,7 +123,7 @@ end-to-end timing includes the full commit and response.
 
 ### Measurement recorded for this implementation
 
-The benchmark was run on 2026-10-03 against the local FastAPI process after
+The benchmark was run on 2026-10-04 against the local FastAPI process after
 service initialization and the SQLite indexed reference-history optimization.
 It timed 50 consecutive Model B requests with the four-event demo already in
 the isolated SQLite history. There was one producer and no intentional delay.
@@ -132,14 +132,14 @@ is measured around each complete HTTP request.
 
 | Measurement | Median | P95 | Mean |
 |---|---:|---:|---:|
-| Behavioural feature generation (SQLite indexed) | 23.4 ms | 32.1 ms | 24.1 ms |
-| Model inference | 2.3 ms | 3.6 ms | 2.5 ms |
-| TreeSHAP explanation | 6.0 ms | 7.0 ms | 6.2 ms |
-| SQLite state write | 1.5 ms | 2.3 ms | 1.6 ms |
-| Total scoring pipeline | 33.5 ms | 43.8 ms | 34.4 ms |
-| Client-observed end-to-end HTTP | 53.4 ms | 67.2 ms | 53.0 ms |
+| Behavioural feature generation (SQLite indexed) | 21.3 ms | 24.6 ms | 21.2 ms |
+| Model inference | 2.4 ms | 2.7 ms | 2.3 ms |
+| TreeSHAP explanation | 5.8 ms | 6.8 ms | 5.9 ms |
+| SQLite state write | 1.5 ms | 1.9 ms | 1.5 ms |
+| Total scoring pipeline | 30.9 ms | 35.9 ms | 30.8 ms |
+| Client-observed end-to-end HTTP | 51.2 ms | 66.6 ms | 50.5 ms |
 
-The 50 requests completed in 2.66 seconds: 18.8 sequential events/second.
+The 50 requests completed in 2.53 seconds: 19.76 sequential events/second.
 
 Prior to the indexed lookup optimization, behavioural feature generation
 required scanning the full 428 MB reference Parquet on every request
