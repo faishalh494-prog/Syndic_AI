@@ -7,10 +7,11 @@
   'use strict';
 
   // --- CONFIGURATION & STATE ---
-  const DEFAULT_KEY = 'test-benchmark-key-01234567890123456789';
   const urlParams = new URLSearchParams(window.location.search);
-  let apiKey = urlParams.get('api_key') || localStorage.getItem('syndicai_api_key') || DEFAULT_KEY;
-  localStorage.setItem('syndicai_api_key', apiKey);
+  let apiKey = urlParams.get('api_key') || localStorage.getItem('syndicai_api_key') || '';
+  if (apiKey) {
+    localStorage.setItem('syndicai_api_key', apiKey);
+  }
 
   const state = {
     currentView: 'live',
@@ -49,6 +50,7 @@
 
       if (response.status === 401) {
         setKeyDotStatus(false);
+        openKeyModal();
         throw new Error('HTTP 401: Unauthorized. Please configure a valid SYNDICAI_API_KEY.');
       }
       if (!response.ok) {
@@ -71,6 +73,18 @@
     if (label) {
       label.textContent = isActive ? 'KEY ACTIVE' : 'KEY REQUIRED';
     }
+  }
+
+  function openKeyModal() {
+    const keyModal = document.getElementById('key-modal');
+    const inputKey = document.getElementById('input-api-key');
+    if (inputKey) inputKey.value = apiKey;
+    if (keyModal) keyModal.style.display = 'flex';
+  }
+
+  function closeKeyModal() {
+    const keyModal = document.getElementById('key-modal');
+    if (keyModal) keyModal.style.display = 'none';
   }
 
   // --- LIVE CLOCK ---
@@ -788,32 +802,24 @@
       updateInvestigation(currStatus, note);
     });
 
-    const keyModal = document.getElementById('key-modal');
     const btnOpenKey = document.getElementById('btn-api-key-config');
     const btnCloseKey = document.getElementById('btn-close-modal');
     const btnCancelKey = document.getElementById('btn-cancel-key');
     const btnSaveKey = document.getElementById('btn-save-key');
     const inputKey = document.getElementById('input-api-key');
 
-    function openModal() {
-      if (inputKey) inputKey.value = apiKey;
-      if (keyModal) keyModal.style.display = 'flex';
-    }
-    function closeModal() {
-      if (keyModal) keyModal.style.display = 'none';
-    }
-
-    btnOpenKey?.addEventListener('click', openModal);
-    document.getElementById('sys-investigator-badge')?.addEventListener('click', openModal);
-    btnCloseKey?.addEventListener('click', closeModal);
-    btnCancelKey?.addEventListener('click', closeModal);
+    btnOpenKey?.addEventListener('click', openKeyModal);
+    document.getElementById('sys-investigator-badge')?.addEventListener('click', openKeyModal);
+    btnCloseKey?.addEventListener('click', closeKeyModal);
+    btnCancelKey?.addEventListener('click', closeKeyModal);
 
     btnSaveKey?.addEventListener('click', () => {
       const newKey = inputKey?.value?.trim();
       if (newKey) {
         apiKey = newKey;
         localStorage.setItem('syndicai_api_key', apiKey);
-        closeModal();
+        closeKeyModal();
+        setKeyDotStatus(true);
         fetchLiveStatus();
         fetchLiveEvents();
       }
@@ -845,8 +851,14 @@
   document.addEventListener('DOMContentLoaded', () => {
     setupNavigation();
     setupEventListeners();
-    fetchLiveStatus();
-    fetchLiveEvents();
+    if (!apiKey) {
+      setKeyDotStatus(false);
+      openKeyModal();
+    } else {
+      setKeyDotStatus(true);
+      fetchLiveStatus();
+      fetchLiveEvents();
+    }
     startPolling();
   });
 

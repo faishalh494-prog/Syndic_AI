@@ -42,7 +42,7 @@
 
           <div class="sys-pill events-pill">
             <span class="sys-pill-label">EVENTS:</span>
-            <span class="sys-pill-value" id="global-events-count">1,452,309</span>
+            <span class="sys-pill-value" id="global-events-count">--</span>
           </div>
 
           <div class="sys-pill model-pill">
@@ -67,7 +67,7 @@
           <div class="sys-timestamp" id="sys-live-clock">OCT 4, 2026 | 12:48:14 PM IST</div>
           <div class="sys-divider"></div>
           <div class="sys-investigator" id="sys-investigator-badge" title="Configure Analyst or API Key">
-            <span class="investigator-text">INVESTIGATOR: <span class="inv-name" id="inv-name-val">RAJ PATEL</span> | ID: <span class="inv-id" id="inv-id-val">RP012</span></span>
+            <span class="investigator-text">INVESTIGATOR: <span class="inv-name" id="inv-name-val">ANALYST</span> | ID: <span class="inv-id" id="inv-id-val">DESK-01</span></span>
           </div>
         </div>
       </div>
@@ -75,11 +75,11 @@
       <!-- Secondary Sub-bar strip -->
       <div class="system-bar-sub">
         <div class="sub-left">
-          <span class="sub-metric"><span class="sub-dim">EVENTS PROCESSED:</span> <strong id="sub-events-processed">2,154,309</strong></span>
+          <span class="sub-metric"><span class="sub-dim">EVENTS PROCESSED:</span> <strong id="sub-events-processed">--</strong></span>
           <span class="sub-sep">•</span>
-          <span class="sub-metric"><span class="sub-dim">LATEST EVENT:</span> <strong id="sub-latest-event-time">OCT 4, 2026 | 12:48:10 PM</strong></span>
+          <span class="sub-metric"><span class="sub-dim">LATEST EVENT:</span> <strong id="sub-latest-event-time">AWAITING STREAM</strong></span>
           <span class="sub-sep">•</span>
-          <span class="sub-metric"><span class="sub-dim">PROCESSING LATENCY:</span> <strong class="teal-text" id="sub-processing-latency">24.4ms</strong></span>
+          <span class="sub-metric"><span class="sub-dim">PROCESSING LATENCY:</span> <strong class="teal-text" id="sub-processing-latency">-- ms</strong></span>
         </div>
         <div class="sub-right">
           <span class="sub-metric"><span class="sub-dim">REF MAX STEP:</span> <strong id="sub-ref-max-step">743</strong></span>
@@ -116,7 +116,7 @@
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
                 <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
               </svg>
-              <span class="rail-badge" id="rail-alert-badge">4</span>
+              <span class="rail-badge" id="rail-alert-badge" style="display:none;">0</span>
             </div>
             <span class="rail-label">Alerts</span>
           </button>
@@ -236,12 +236,12 @@
               <div class="ws-header">
                 <div class="ws-header-top">
                   <span class="ws-pretitle">TRANSACTION INVESTIGATION WORKSPACE</span>
-                  <div class="ws-risk-badge" id="ws-badge-risk">RISK SCORE: 98/100</div>
+                  <div class="ws-risk-badge" id="ws-badge-risk" style="display:none;">RISK SCORE: --</div>
                 </div>
-                <h1 class="ws-transaction-id" id="ws-tx-id">TXN-100234</h1>
+                <h1 class="ws-transaction-id" id="ws-tx-id">--</h1>
                 <div class="ws-meta-row">
                   <span class="ws-meta-item"><span class="meta-label">TIMESTAMP:</span> <strong id="ws-meta-time">OCT 4, 2026 12:48:10 PM</strong></span>
-                  <span class="ws-meta-item"><span class="meta-label">STATE:</span> <strong class="gold-text" id="ws-meta-state">INVESTIGATING</strong></span>
+                  <span class="ws-meta-item"><span class="meta-label">STATE:</span> <strong class="gold-text" id="ws-meta-state">--</strong></span>
                 </div>
               </div>
 
@@ -252,15 +252,15 @@
                   <div class="assessment-grid">
                     <div class="assess-item">
                       <span class="assess-lbl">Risk Score:</span>
-                      <strong class="assess-val high-risk-text" id="ws-assess-score">98.58/100</strong>
+                      <strong class="assess-val" id="ws-assess-score">--</strong>
                     </div>
                     <div class="assess-item">
                       <span class="assess-lbl">Review Priority:</span>
-                      <strong class="assess-val gold-text" id="ws-assess-priority">URGENT</strong>
+                      <strong class="assess-val" id="ws-assess-priority">--</strong>
                     </div>
                     <div class="assess-item">
                       <span class="assess-lbl">Review Threshold:</span>
-                      <strong class="assess-val" id="ws-assess-threshold">97.69</strong>
+                      <strong class="assess-val" id="ws-assess-threshold">--</strong>
                     </div>
                     <div class="assess-item">
                       <span class="assess-lbl">Calibrated probability:</span>
@@ -324,10 +324,10 @@
                   </div>
 
                   <div class="behaviour-metrics-summary" id="ws-behaviour-metrics">
-                    <div class="b-metric"><span class="b-lbl">Coverage:</span> <strong id="ws-b-coverage">Established History</strong></div>
-                    <div class="b-metric"><span class="b-lbl">Prior Sender Txns:</span> <strong id="ws-b-sender-txns">69</strong></div>
-                    <div class="b-metric"><span class="b-lbl">Prior Receiver Txns:</span> <strong id="ws-b-recv-txns">69</strong></div>
-                    <div class="b-metric"><span class="b-lbl">Recency (steps):</span> <strong id="ws-b-recency">1</strong></div>
+                    <div class="b-metric"><span class="b-lbl">Coverage:</span> <strong id="ws-b-coverage">--</strong></div>
+                    <div class="b-metric"><span class="b-lbl">Prior Sender Txns:</span> <strong id="ws-b-sender-txns">--</strong></div>
+                    <div class="b-metric"><span class="b-lbl">Prior Receiver Txns:</span> <strong id="ws-b-recv-txns">--</strong></div>
+                    <div class="b-metric"><span class="b-lbl">Recency (steps):</span> <strong id="ws-b-recency">--</strong></div>
                   </div>
                 </div>
 
