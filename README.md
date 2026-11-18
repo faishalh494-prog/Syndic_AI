@@ -91,25 +91,28 @@ environment, for example by generating it without printing it:
 $env:SYNDICAI_API_KEY = (python -c "import secrets; print(secrets.token_urlsafe(32))")
 ```
 
-Configure the key in your local environment or secret manager.
+Configure the same value for both processes using your local environment or
+secret manager. Start the API backend and investigator interfaces:
 
-Start the FastAPI application, which directly serves the primary institutional
-analyst frontend at `http://127.0.0.1:8000/`:
+1. **Start the FastAPI backend service** (Terminal 1):
+   ```powershell
+   python -m uvicorn backend.app:app --reload
+   ```
 
-```powershell
-python -m uvicorn backend.app:app --reload
-```
+2. **Access the Web Workstation** in your browser:
+   - **URL:** `http://127.0.0.1:8000/dashboard`
+   - Real-time transaction river, TreeSHAP evidence breakdowns, live stream monitor, and API key management.
 
-Optionally, the Streamlit monitoring desk remains available in a separate terminal:
+3. **Start the Streamlit Workstation** (Terminal 2, optional):
+   ```powershell
+   python -m streamlit run frontend/streamlit_app.py
+   ```
+   - **URL:** `http://127.0.0.1:8501`
+   - In-depth historical row investigation, causal counterparty graph inspection, and alert-budget threshold evaluations.
 
-```powershell
-python -m streamlit run frontend/streamlit_app.py
-```
-
-The API
-refuses protected requests when a sufficiently long key is not configured.
+The API refuses protected requests when a sufficiently long key is not configured.
 Structured request/action logs exclude the key, account identifiers, and event
-IDs. Open `http://127.0.0.1:8000/docs` for the API reference.
+IDs. Open `http://127.0.0.1:8000/docs` for the interactive API reference.
 
 ## Live event monitor and stream demo
 
