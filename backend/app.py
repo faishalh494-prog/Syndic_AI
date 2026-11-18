@@ -64,7 +64,14 @@ def serve_dashboard() -> Response:
     index_path = FRONTEND_DIR / "index.html"
     if not index_path.is_file():
         raise HTTPException(status_code=404, detail="Dashboard frontend not found")
-    return FileResponse(index_path)
+    return FileResponse(
+        index_path,
+        headers={
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0",
+        },
+    )
 
 
 @app.middleware("http")

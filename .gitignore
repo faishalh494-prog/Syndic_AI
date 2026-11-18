@@ -1,17 +1,59 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
+# Testing & Linting caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments & Local Secrets
 .venv/
 venv/
+ENV/
+env/
 .env
+.env.*
+!.env.example
 
-.ipynb_checkpoints/
+# IDE, OS & Editor artifacts
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
 
+# Jupyter Checkpoints
+.ipynb_checkpoints/
+
+# Local Logs & Temporary profiles
+*.log
+logs/
+.chrome_*/
+
+# Data files (retained locally; large datasets exceed GitHub limits)
 data/raw/*
 !data/raw/README.md
 
 data/processed/*
 !data/processed/README.md
 
+# Processed preview data is tracked
+!data/demo/syndicai_v1_processed_preview.csv
+
+# Runtime SQLite state (retained locally; generated during live monitoring)
+models/*.sqlite
+models/*.sqlite-journal
+models/*.sqlite-wal
+
+# Models & Evaluation artifacts
+# Heavy model evaluation artifacts (network features, alert queues) can be generated locally
 models/*
+!models/.gitkeep
+!models/metrics.json
+!models/model_bundle.joblib

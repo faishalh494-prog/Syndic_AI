@@ -1,0 +1,329 @@
+{
+  "dataset": {
+    "reference": "syndicai_v1_processed.parquet",
+    "split_files": {
+      "train": "syndicai_v1_train.parquet",
+      "val": "syndicai_v1_val.parquet",
+      "test": "syndicai_v1_test.parquet"
+    },
+    "split_rows": {
+      "train": 4463587,
+      "val": 980416,
+      "test": 918617
+    },
+    "training_rows": 4463587,
+    "validation_rows": 980416,
+    "test_rows": 918617,
+    "training_positives": 3643,
+    "validation_positives": 564,
+    "test_positives": 4006,
+    "split_strategy": "existing chronological step split; no re-splitting",
+    "split_row_ranges": {
+      "train": {
+        "start_inclusive": 0,
+        "end_exclusive": 4463587
+      },
+      "val": {
+        "start_inclusive": 4463587,
+        "end_exclusive": 5444003
+      },
+      "test": {
+        "start_inclusive": 5444003,
+        "end_exclusive": 6362620
+      }
+    }
+  },
+  "training": {
+    "estimator": "XGBoostClassifier",
+    "estimators": 80,
+    "max_depth": 5,
+    "learning_rate": 0.08,
+    "min_child_weight": 2,
+    "subsample": 0.85,
+    "colsample_bytree": 1.0,
+    "max_bin": 128,
+    "random_seed": 42,
+    "n_jobs": 4,
+    "imbalance": "scale_pos_weight=negative/positive rows in training split",
+    "threshold_selection": "maximum F1 on validation split"
+  },
+  "models": {
+    "A": {
+      "features": [
+        "step",
+        "hour_of_day",
+        "day_of_sim",
+        "is_night",
+        "type_CASH_IN",
+        "type_CASH_OUT",
+        "type_DEBIT",
+        "type_PAYMENT",
+        "type_TRANSFER",
+        "amount",
+        "amount_log1p"
+      ],
+      "validation": {
+        "threshold": 0.9720507860183716,
+        "precision": 0.445859872611465,
+        "recall": 0.3723404255319149,
+        "f1": 0.4057971014492754,
+        "pr_auc": 0.2929081958576058,
+        "true_positives": 210,
+        "false_positives": 261,
+        "false_negatives": 354,
+        "true_negatives": 979591,
+        "alerts": 471,
+        "alert_burden_pct": 0.04804083164697435,
+        "false_positive_rate_pct": 0.02663667574286729,
+        "false_positives_per_10000_negatives": 2.663667574286729,
+        "evaluation_rows": 980416,
+        "actual_fraud_rows": 564
+      },
+      "test": {
+        "threshold": 0.9720507860183716,
+        "precision": 0.36486786586719966,
+        "recall": 0.41013479780329504,
+        "f1": 0.38617933952285816,
+        "pr_auc": 0.3170909780550789,
+        "true_positives": 1643,
+        "false_positives": 2860,
+        "false_negatives": 2363,
+        "true_negatives": 911751,
+        "alerts": 4503,
+        "alert_burden_pct": 0.49019341031137026,
+        "false_positive_rate_pct": 0.31270124675955135,
+        "false_positives_per_10000_negatives": 31.270124675955135,
+        "evaluation_rows": 918617,
+        "actual_fraud_rows": 4006
+      },
+      "gain_importance_share": {
+        "step": 0.0173136921167705,
+        "hour_of_day": 0.04051974512168496,
+        "day_of_sim": 0.05296376796081204,
+        "is_night": 0.0,
+        "type_CASH_IN": 0.1290121174486033,
+        "type_CASH_OUT": 0.15515101069985412,
+        "type_DEBIT": 0.0032941551987160037,
+        "type_PAYMENT": 0.1565365957538735,
+        "type_TRANSFER": 0.3613897257460401,
+        "amount": 0.07492552478016064,
+        "amount_log1p": 0.008893665173484843
+      },
+      "fit_seconds": 23.68,
+      "test_alert_queue_rows": 4503
+    },
+    "B": {
+      "features": [
+        "step",
+        "hour_of_day",
+        "day_of_sim",
+        "is_night",
+        "type_CASH_IN",
+        "type_CASH_OUT",
+        "type_DEBIT",
+        "type_PAYMENT",
+        "type_TRANSFER",
+        "amount",
+        "amount_log1p",
+        "receiver_txn_count_before",
+        "receiver_total_amount_before",
+        "receiver_avg_amount_before",
+        "receiver_steps_since_last",
+        "receiver_is_new",
+        "receiver_txn_count_last24_before",
+        "sender_txn_count_before",
+        "sender_is_new"
+      ],
+      "validation": {
+        "threshold": 0.9769259095191956,
+        "precision": 0.6151515151515151,
+        "recall": 0.3599290780141844,
+        "f1": 0.4541387024608501,
+        "pr_auc": 0.36682710378098365,
+        "true_positives": 203,
+        "false_positives": 127,
+        "false_negatives": 361,
+        "true_negatives": 979725,
+        "alerts": 330,
+        "alert_burden_pct": 0.03365918140870814,
+        "false_positive_rate_pct": 0.012961141070284083,
+        "false_positives_per_10000_negatives": 1.2961141070284083,
+        "evaluation_rows": 980416,
+        "actual_fraud_rows": 564
+      },
+      "test": {
+        "threshold": 0.9769259095191956,
+        "precision": 0.6490443269621797,
+        "recall": 0.39840239640539193,
+        "f1": 0.4937354988399072,
+        "pr_auc": 0.5092559816470268,
+        "true_positives": 1596,
+        "false_positives": 863,
+        "false_negatives": 2410,
+        "true_negatives": 913748,
+        "alerts": 2459,
+        "alert_burden_pct": 0.2676850090951942,
+        "false_positive_rate_pct": 0.09435705452919328,
+        "false_positives_per_10000_negatives": 9.43570545291933,
+        "evaluation_rows": 918617,
+        "actual_fraud_rows": 4006
+      },
+      "gain_importance_share": {
+        "step": 0.011455728507312213,
+        "hour_of_day": 0.029054461077903486,
+        "day_of_sim": 0.035206133671055816,
+        "is_night": 0.0,
+        "type_CASH_IN": 0.02730705613116985,
+        "type_CASH_OUT": 0.16029260267762643,
+        "type_DEBIT": 4.666232337450476e-06,
+        "type_PAYMENT": 0.08691966344192192,
+        "type_TRANSFER": 0.4064813149685709,
+        "amount": 0.07924498597254513,
+        "amount_log1p": 0.008752533927058206,
+        "receiver_txn_count_before": 0.07412081328192124,
+        "receiver_total_amount_before": 0.027260261469167064,
+        "receiver_avg_amount_before": 0.010957181367275585,
+        "receiver_steps_since_last": 0.006354495579564936,
+        "receiver_is_new": 0.0,
+        "receiver_txn_count_last24_before": 0.029438645060454936,
+        "sender_txn_count_before": 0.007149456634114834,
+        "sender_is_new": 0.0
+      },
+      "fit_seconds": 27.46,
+      "test_alert_queue_rows": 2459
+    },
+    "C": {
+      "features": [
+        "step",
+        "hour_of_day",
+        "day_of_sim",
+        "is_night",
+        "type_CASH_IN",
+        "type_CASH_OUT",
+        "type_DEBIT",
+        "type_PAYMENT",
+        "type_TRANSFER",
+        "amount",
+        "amount_log1p",
+        "receiver_txn_count_before",
+        "receiver_total_amount_before",
+        "receiver_avg_amount_before",
+        "receiver_steps_since_last",
+        "receiver_is_new",
+        "receiver_txn_count_last24_before",
+        "sender_txn_count_before",
+        "sender_is_new",
+        "network_sender_prior_in_degree",
+        "network_sender_in_degree_last24",
+        "network_receiver_prior_out_degree",
+        "network_receiver_out_degree_last24"
+      ],
+      "validation": {
+        "threshold": 0.9769259095191956,
+        "precision": 0.6151515151515151,
+        "recall": 0.3599290780141844,
+        "f1": 0.4541387024608501,
+        "pr_auc": 0.36682710378098365,
+        "true_positives": 203,
+        "false_positives": 127,
+        "false_negatives": 361,
+        "true_negatives": 979725,
+        "alerts": 330,
+        "alert_burden_pct": 0.03365918140870814,
+        "false_positive_rate_pct": 0.012961141070284083,
+        "false_positives_per_10000_negatives": 1.2961141070284083,
+        "evaluation_rows": 980416,
+        "actual_fraud_rows": 564
+      },
+      "test": {
+        "threshold": 0.9769259095191956,
+        "precision": 0.6490443269621797,
+        "recall": 0.39840239640539193,
+        "f1": 0.4937354988399072,
+        "pr_auc": 0.5092559816470268,
+        "true_positives": 1596,
+        "false_positives": 863,
+        "false_negatives": 2410,
+        "true_negatives": 913748,
+        "alerts": 2459,
+        "alert_burden_pct": 0.2676850090951942,
+        "false_positive_rate_pct": 0.09435705452919328,
+        "false_positives_per_10000_negatives": 9.43570545291933,
+        "evaluation_rows": 918617,
+        "actual_fraud_rows": 4006
+      },
+      "gain_importance_share": {
+        "step": 0.011455728507312213,
+        "hour_of_day": 0.029054461077903486,
+        "day_of_sim": 0.035206133671055816,
+        "is_night": 0.0,
+        "type_CASH_IN": 0.02730705613116985,
+        "type_CASH_OUT": 0.16029260267762643,
+        "type_DEBIT": 4.666232337450476e-06,
+        "type_PAYMENT": 0.08691966344192192,
+        "type_TRANSFER": 0.4064813149685709,
+        "amount": 0.07924498597254513,
+        "amount_log1p": 0.008752533927058206,
+        "receiver_txn_count_before": 0.07412081328192124,
+        "receiver_total_amount_before": 0.027260261469167064,
+        "receiver_avg_amount_before": 0.010957181367275585,
+        "receiver_steps_since_last": 0.006354495579564936,
+        "receiver_is_new": 0.0,
+        "receiver_txn_count_last24_before": 0.029438645060454936,
+        "sender_txn_count_before": 0.007149456634114834,
+        "sender_is_new": 0.0,
+        "network_sender_prior_in_degree": 0.0,
+        "network_sender_in_degree_last24": 0.0,
+        "network_receiver_prior_out_degree": 0.0,
+        "network_receiver_out_degree_last24": 0.0
+      },
+      "fit_seconds": 30.02,
+      "test_alert_queue_rows": 2459
+    }
+  },
+  "network_features": [
+    "network_sender_prior_in_degree",
+    "network_sender_in_degree_last24",
+    "network_receiver_prior_out_degree",
+    "network_receiver_out_degree_last24"
+  ],
+  "network_feature_summary": {
+    "network_sender_prior_in_degree": {
+      "nonzero_rows": 900,
+      "nonzero_pct": 0.014145116320006538,
+      "maximum": 57
+    },
+    "network_sender_in_degree_last24": {
+      "nonzero_rows": 442,
+      "nonzero_pct": 0.006946823792714322,
+      "maximum": 16
+    },
+    "network_receiver_prior_out_degree": {
+      "nonzero_rows": 6588,
+      "nonzero_pct": 0.10354225146244787,
+      "maximum": 2
+    },
+    "network_receiver_out_degree_last24": {
+      "nonzero_rows": 796,
+      "nonzero_pct": 0.012510569545250228,
+      "maximum": 1
+    }
+  },
+  "test_alerts_note": "Test-split predictions are for final evaluation/demo investigation only.",
+  "comparisons_vs_B": {
+    "A": {
+      "precision": -0.28417646109498007,
+      "recall": 0.011732401397903103,
+      "f1": -0.10755615931704904,
+      "pr_auc": -0.19216500359194788,
+      "alerts": 2044.0
+    },
+    "C": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "pr_auc": 0.0,
+      "alerts": 0.0
+    }
+  }
+}

@@ -70,11 +70,7 @@ $env:SYNDICAI_API_KEY = (python -c "import secrets; print(secrets.token_urlsafe(
 python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000
 ```
 
-The primary institutional web frontend is served directly by the API at
-`http://127.0.0.1:8000/` (loading `frontend/index.html`, `styles.css`, and
-`app.js` via the `/static` mount).
-
-Alternatively, the Streamlit monitoring desk remains available in a second terminal:
+In a second terminal, set the same value and start the dashboard:
 
 ```powershell
 $env:SYNDICAI_API_KEY = "<same locally-held value>"
@@ -123,7 +119,7 @@ end-to-end timing includes the full commit and response.
 
 ### Measurement recorded for this implementation
 
-The benchmark was run on 2026-10-04 against the local FastAPI process after
+The benchmark was run on 2026-10-03 against the local FastAPI process after
 service initialization and the SQLite indexed reference-history optimization.
 It timed 50 consecutive Model B requests with the four-event demo already in
 the isolated SQLite history. There was one producer and no intentional delay.
@@ -132,21 +128,21 @@ is measured around each complete HTTP request.
 
 | Measurement | Median | P95 | Mean |
 |---|---:|---:|---:|
-| Behavioural feature generation (SQLite indexed) | 31.2 ms | 37.6 ms | 32.4 ms |
-| Model inference | 3.4 ms | 4.8 ms | 3.6 ms |
-| TreeSHAP explanation | 7.5 ms | 9.0 ms | 7.6 ms |
-| SQLite state write | 1.7 ms | 2.3 ms | 2.0 ms |
-| Total scoring pipeline | 44.3 ms | 59.7 ms | 45.7 ms |
-| Client-observed end-to-end HTTP | 69.4 ms | 97.7 ms | 70.0 ms |
+| Behavioural feature generation (SQLite indexed) | 23.4 ms | 32.1 ms | 24.1 ms |
+| Model inference | 2.3 ms | 3.6 ms | 2.5 ms |
+| TreeSHAP explanation | 6.0 ms | 7.0 ms | 6.2 ms |
+| SQLite state write | 1.5 ms | 2.3 ms | 1.6 ms |
+| Total scoring pipeline | 33.5 ms | 43.8 ms | 34.4 ms |
+| Client-observed end-to-end HTTP | 53.4 ms | 67.2 ms | 53.0 ms |
 
-The 50 requests completed in 3.50 seconds: 14.27 sequential events/second.
+The 50 requests completed in 2.66 seconds: 18.8 sequential events/second.
 
 Prior to the indexed lookup optimization, behavioural feature generation
 required scanning the full 428 MB reference Parquet on every request
 (~248 ms median, ~96% of pipeline time). The SQLite B-tree indexed layer
-reduced feature lookup to ~31 ms median (>8x improvement), with end-to-end
-HTTP latency dropping from ~279 ms to ~69 ms and throughput increasing from
-~3.6 to ~14.3 events/second. Feature computation semantics are unchanged and
+reduced feature lookup to ~23 ms median (>10× improvement), with end-to-end
+HTTP latency dropping from ~279 ms to ~53 ms and throughput increasing from
+~3.6 to ~19 events/second. Feature computation semantics are unchanged and
 validated by the `IndexedLookupRegressionTests` parity suite.
 
 Environment: Windows 11, AMD64 (`AMD64 Family 25 Model 124 Stepping 0,
